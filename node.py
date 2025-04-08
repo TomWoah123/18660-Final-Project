@@ -75,7 +75,7 @@ model = NeuralODE(num_channels=1, hidden_dim=92)
 img_std = 0.3081
 img_mean = 0.1307
 
-batch_size = 32
+batch_size = 64
 train_loader = torch.utils.data.DataLoader(
     torchvision.datasets.MNIST("data/mnist", train=True, download=True,
                                transform=torchvision.transforms.Compose([
@@ -84,6 +84,7 @@ train_loader = torch.utils.data.DataLoader(
                                ])),
     batch_size=batch_size, shuffle=True
 )
+print(len(train_loader))
 
 test_loader = torch.utils.data.DataLoader(
     torchvision.datasets.MNIST("data/mnist", train=False, download=True,
@@ -109,9 +110,11 @@ for epoch in range(num_epochs):
         one_hot_labels = one_hot_encode(labels)
         train_loss = loss(model_output, one_hot_labels)
         batch_train_losses.append(train_loss.item())
+        print(f"Train Loss: {batch_train_losses[-1]}")
         train_predictions = torch.argmax(model_output, dim=1)
         train_accuracy = torch.sum(train_predictions == labels) / len(labels)
         batch_train_accuracies.append(train_accuracy * 100)
+        print(f"Train Accuracy: {batch_train_accuracies[-1]}")
         optimizer.zero_grad()
         train_loss.backward()
         optimizer.step()
