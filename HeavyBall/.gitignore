@@ -1,0 +1,17 @@
+data/
+mnist_data/
+*.pyc
+wandb/
+.vscode/
+*.swp
+*debug.log
+*.npy
+*.pkl
+results/
+*.mdl
+visualization/*.pdf
+walker2d/walker*.csv
+point_cloud/backup/bnfe.png
+point_cloud/backup/loss.png
+point_cloud/backup/nfe.png
+png/*.png
